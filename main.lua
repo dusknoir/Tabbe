@@ -26,18 +26,17 @@ GetNameList = function()
     end
   end
   for index = 1, BNGetNumFriends() do
-    local _, _, _, toonName, _, _, online = BNGetFriendInfo(index)
+    local _, _, _, _, toonName, _, _, online = BNGetFriendInfo(index)
     if online then
       onlines[toonName] = true
     end
   end
-  if GetNumRaidMembers() > 0 then
-    for index = 1, GetNumRaidMembers() do
+  if GetNumGroupMembers() then
+    for index = 1, GetNumGroupMembers() do
       onlines[GetRaidRosterInfo(index)] = true
     end
-  end
-  if GetNumPartyMembers() > 0 then
-    for index = 1, GetNumPartyMembers() do
+  elseif GetNumSubgroupMembers() > 0 then
+    for index = 1, GetNumSubgroupMembers() do
       onlines[UnitName("party" .. index)] = true
     end
   end

@@ -19,22 +19,17 @@ GetNameList = ->
   if IsInGuild!
     for index = 1, GetNumGuildMembers!
       name, _, _, _, _, _, _, _, online = GetGuildRosterInfo(index)
-
-      if online
-        onlines[name] = true
-      -- else
-      --  offlines[name] = true
+      onlines[name] = true if online
 
   for index = 1, BNGetNumFriends!
-    _, _, _, toonName, _, _, online = BNGetFriendInfo(index)
+    _, _, _, _, toonName, _, _, online = BNGetFriendInfo(index)
     onlines[toonName] = true if online
 
-  if GetNumRaidMembers! > 0
-    for index = 1, GetNumRaidMembers!
+  if GetNumGroupMembers!
+    for index = 1, GetNumGroupMembers!
       onlines[GetRaidRosterInfo(index)] = true
-
-  if GetNumPartyMembers! > 0
-    for index = 1, GetNumPartyMembers!
+  elseif GetNumSubgroupMembers! > 0
+    for index = 1, GetNumSubgroupMembers!
       onlines[UnitName("party" .. index)] = true
 
 GetPosition = (editbox) ->
